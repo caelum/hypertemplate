@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# File: script/console
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+ENV["MIGRATOR_CALLER"] = "console"
+libs = " -r #{File.dirname(__FILE__) + '/../lib/hypertemplate.rb'} -r ruby-debug"
+puts "Loading hypertemplate development environment..."
+exec "#{irb} #{libs} --simple-prompt #{ARGV.join("")}"
