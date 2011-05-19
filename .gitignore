@@ -1,3 +1,5 @@
 Gemfile.lock
+*.gem
+
 .bundle/
 test/rails2_skel/log/
