@@ -25,12 +25,11 @@ module Hypertemplate
         end
         
         def initialize_engine
-          return if defined?(::Hypertemplate)
           require_template_library 'hypertemplate'
         end
 
         def prepare
-          @media_type = options[:media_type]
+          @media_type = options[:media_type] || @options[:media_type]
           raise Hypertemplate::BuilderError.new("Content type required to build representation.") unless @media_type
         end
 

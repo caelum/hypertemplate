@@ -44,7 +44,26 @@ module Hypertemplate
         end
       end
 
+      module Rails3Adapter
+        def _pick_partial_template(path) #:nodoc:
+          return path unless path.is_a?(String)
+          prefix = controller_path unless path.include?(?/)
+          find_template(path, prefix, true).instance_eval do
+            unless respond_to?(:path)
+              def path; virtual_path end
+            end
+            self
+          end
+        end
+      end
+      
       module Helpers
+
+        def self.extend_object(base)
+          super
+          base.extend(Rails3Adapter) unless base.respond_to?(:_pick_partial_template)
+        end
+        
         # Load a partial template to execute in describe
         #
         # For example:
