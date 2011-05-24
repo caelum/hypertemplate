@@ -124,6 +124,14 @@ then forked from [Tokamak](http://github.com/abril/tokamak). See LICENSE.txt*
 	  }
 	}
 
+## Testing with Rails and Rspec
+
+In order to test Hypertemplate with Rails and RSpec, you have to invoke 
+
+	render_views
+	
+in your controller specs.
+
 ## Questions? Help?
 
 * Join the mailing list restfulie@googlegroups.com
