@@ -2,9 +2,7 @@ module Hypertemplate
   module Builder
     class Json < Hypertemplate::Builder::Base
       
-      def self.media_types
-        ["application/json"]
-      end
+      @media_types = ["application/json"]
 
       attr_reader :raw
 
