@@ -2,9 +2,7 @@ module Hypertemplate
   module Builder
     class Xml < Hypertemplate::Builder::Base
 
-      def self.media_types
-        ["application/xml", "text/xml"]
-      end
+      @media_types = ["application/xml", "text/xml"]
 
       attr_reader :raw
 

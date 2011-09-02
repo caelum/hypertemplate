@@ -7,6 +7,14 @@ module Hypertemplate
 
       class << self
         
+        def media_types
+          @media_types
+        end
+
+        def extend_media_types(media_types)
+          @media_types.push(*media_types)
+        end
+
         def build_dsl(obj, options = {}, &block)
           recipe = block_given? ? block : options.delete(:recipe)
           raise Hypertemplate::BuilderError.new("Recipe required to build representation.") unless recipe.respond_to?(:call)
