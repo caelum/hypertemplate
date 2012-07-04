@@ -2,11 +2,11 @@ require 'hypertemplate' unless defined? ::Hypertemplate
 
 module Hypertemplate
   module RegistryContainer
-    
+
     def hypertemplate_registry
       @hypertemplate || use_hypertemplate
     end
-    
+
     def use_hypertemplate(&block)
       @hypertemplate = ::Hypertemplate::Registry.new
       if block_given?
@@ -17,7 +17,7 @@ module Hypertemplate
       end
       @hypertemplate
     end
-    
+
   end
 end
 
@@ -31,10 +31,9 @@ module Hypertemplate
   module Hook
     module Rails
 
-      class Hypertemplate < ::ActionView::TemplateHandler
-        include ::ActionView::TemplateHandlers::Compilable
+      class Hypertemplate
 
-        def compile(template)
+        def self.call(template)
           "@content_type_helpers = controller.hypertemplate_registry[self.response.content_type].helper; " +
           "extend @content_type_helpers; " +
           "extend Hypertemplate::Hook::Rails::Helpers; " +
@@ -56,14 +55,14 @@ module Hypertemplate
           end
         end
       end
-      
+
       module Helpers
 
         def self.extend_object(base)
           super
           base.extend(Rails3Adapter) unless base.respond_to?(:_pick_partial_template)
         end
-        
+
         # Load a partial template to execute in describe
         #
         # For example:
@@ -108,7 +107,7 @@ module Hypertemplate
       end
 
     private
-      
+
       def self.registry
         if defined? ::ActionView::Template and ::ActionView::Template.respond_to?(:register_template_handler)
           ::ActionView::Template
