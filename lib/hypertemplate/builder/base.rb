@@ -22,13 +22,17 @@ module Hypertemplate
           builder = self.new(nil, options)
           copy_internal_variables(builder, obj)
           builder.instance_variable_set :@view, obj
-          def builder.method_missing(name, *args, &block)
-            begin
-              @view.send name, *args, &block
-            rescue
-              super
+          # eval hack necessary to avoid "super from singleton method" error
+          # in Ruby 1.9.2. From http://stackoverflow.com/questions/4261615
+          eval %(
+            def builder.method_missing(name, *args, &block)
+              begin
+                @view.send name, *args, &block
+              rescue
+                super
+              end
             end
-          end
+          )%
           builder.instance_exec(obj, &recipe)
 
           builder.representation
