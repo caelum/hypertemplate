@@ -2,6 +2,7 @@ module Hypertemplate
   module Builder
     require "hypertemplate/builder/base"
     require "hypertemplate/builder/values"
+    require "hypertemplate/builder/cache"
     require "hypertemplate/builder/json"
     require "hypertemplate/builder/xml"
 

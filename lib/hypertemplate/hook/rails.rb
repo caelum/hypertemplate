@@ -1,6 +1,12 @@
 require 'hypertemplate' unless defined? ::Hypertemplate
 
 module Hypertemplate
+  class Railtie < Rails::Railtie
+    initializer "hypertemplate.setup_cache" do
+      Hypertemplate::Builder::Base.cache = Rails.cache
+    end
+  end
+
   module RegistryContainer
 
     def hypertemplate_registry
