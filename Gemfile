@@ -3,6 +3,7 @@ source :rubygems
 # Main dependencies
 gem "json_pure", :require => "json/pure"
 gem "nokogiri"
+gem 'yajl-ruby', require: 'yajl'
 
 group :development, :test do
   gem "ruby-debug"  , :platforms => [:mri_18]
