@@ -75,7 +75,7 @@ module Hypertemplate
       end
 
       def representation
-        Yajl::Encoder.encode(@raw)
+        MultiJson.encode(@raw)
       end
 
     private
