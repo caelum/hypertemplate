@@ -75,7 +75,7 @@ module Hypertemplate
       end
 
       def representation
-        @raw.to_json
+        MultiJson.encode(@raw)
       end
 
     private

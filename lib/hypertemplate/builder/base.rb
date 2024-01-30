@@ -6,7 +6,14 @@ module Hypertemplate
       undef_method :id if respond_to?(:id)
 
       class << self
-        
+        def cache
+          @cache
+        end
+
+        def cache=(cache)
+          @cache = cache
+        end
+
         def media_types
           @media_types
         end
@@ -95,6 +102,12 @@ module Hypertemplate
       def ns(*args, &block)
         values do |v|
           v.send(:[], *args, &block)
+        end
+      end
+
+      def cache(key)
+        Cache.new(key, self) do |cache|
+          yield cache
         end
       end
 
